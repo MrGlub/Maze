@@ -1,7 +1,7 @@
 import {toArray, findTile} from "./htmlToJs.js";
 import createGrid from "./gridCreator.js"
 import {BFS, path, visited} from "./bfs.js";
-import {DSF} from "./dfs.js";
+import {DSF, walled} from "./dfs.js";
 // size input
 var size = document.querySelector(".input");
 var adj = document.querySelector("#adjustedValue");
@@ -97,7 +97,22 @@ function bsfSolve () {
     })
 }
 function dsfCreate(){
-    dsf.addEventListener("click", (event) => DSF(maze));
+    dsf.addEventListener("click", (event) =>{
+        DSF(maze);
+        let i = 0;
+        let ind = 0;
+        let int = window.setInterval(function() {
+            if( i == walled.length){
+                clearInterval(int);
+                dsf.classList.remove(".sMethod");
+            }
+            else{
+                curr= document.querySelector(`.x${walled[i][1]+1}.y${walled[i][0]+1}`);
+                curr.classList.add("p");
+                i++;
+            }
+        }, 100);
+    })
 }
 function cellEvent(){
     let cellChange1 = document.querySelectorAll(".cell1");
