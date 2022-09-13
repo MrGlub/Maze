@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "en-US" dir = "ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title>maze solver</title>
+        <meta name="viewport" content= "width=device-width, initial-scale=1">
+        <meta name = "description" content = "Maze Creator and Solver">
+        <link rel = "stylesheet" href = "style.css">
+        <script type="module" src = "slider.js"></script>
+        <script type="module" src="htmlToJs.js"></script>
+        <script type="module" src="buttonClick.js" defer></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik+Maze&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="./gold-fish-icon.png">
+    </head>
+    <body>
+        <div class="Menu">
+            <h1>Maze Solver</h1>
+            <div class = "sizeContainer">
+                <div class = "sizeInput">
+                    <label>Size (5-20): </label>
+                    <input type = "number" min = "5" max = "20" value = "5" class = "input"><br>
+                    <span id = "adjustedValue"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="gridContainer">
+            </div>
+        </div>
+        <p>            
+            <h3>settings:</h3>
+            <h4 style = "padding-left: 20px;">placement:</h4>
+            <div class = "placement">
+                <button class = "wB">wall</button>
+                <button class = "sB">start</button>
+                <button class = "eB">end</button>
+            </div>
+            <h4 style = "padding-left: 20px;">maze creator:</h4>
+            <div class = "creator">
+                <button class = "dsf">DSF</button>
+            </div>
+            <h4 style = "padding-left: 20px;">maze solver:</h4>
+            <div class = "solver">
+                <button class = "bsf">BSF</button>
+            </div>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,4 @@
+var stack = [];
+function mazeCreator(){
+    
+}
