@@ -1,5 +1,6 @@
-import {toArray} from "./htmlToJs.js";
+import {toArray, toHtml} from "./htmlToJs.js";
 var walled = [];
+var prev = [];
 function contains(arr, coord){
     for(let i = 0;i < arr.length; i ++){
         if(arr[i][1] == coord[1] && arr[i][0] == coord[0]){
@@ -15,68 +16,66 @@ function toWall(maze){
         for(let i = 0 ; i < maze.length; i++){
             for(let ind = 0; ind < maze.length; ind++){
                 curr = document.querySelector(`.x${ind+1}.y${i+1}`)
-                if(!curr.classList.contains("e") && !curr.classList.contains("s")){
-                    curr.classList.add("w");
-                }
+                curr.classList.add("w");    
             }
         }
         maze = toArray(maze.length);
-    //     if(i == maze.length){
-    //         clearInterval(inter);
-    //         maze = toArray(maze.length);
-    //     }
-    //     else if(ind == maze.length){
-    //         i++;
-    //         ind = 0;
-    //     }
-    //     else{
-    //         curr = document.querySelector(`.x${ind+1}.y${i+1}`)
-    //         console.log(curr);
-    //         if(!curr.classList.contains("e") && !curr.classList.contains("s")){
-    //             curr.classList.add("w");
-    //         }
-    //         ind++;
-    //     }
-    // }, 10)
-}   
-function DSF(maze){
-    let start = [0, 0];
-    walled = [];
-    walled.push(start);
-    let q = [];
-    q.push(start);
-    toWall(maze);
-    let curr;
-    while(q.length != 0){
-        curr = q.pop();
-        //checks if start or end are on odd squares
-        // if(curr[1]+1<maze.length && (maze[curr[0]][curr[1]+1] == "s" || maze[curr[0]][curr[1]+1] == "e") && !contains(walled, [curr[0], curr[1]+1])){
-        //     q.push([curr[0], curr[1]+1]);
-        // }
-        // if(curr[1]>0 && (maze[curr[0]][curr[1]-1] == "s" || maze[curr[0]][curr[1]-1] == "e") && !contains(walled, [curr[0], curr[1]-1])){
-        //     q.push([curr[0], curr[1]-1]);
-        // }
-        // if(curr[0]+1<maze.length && (maze[curr[0]+1][curr[1]] == "s" || maze[curr[0]+1][curr[1]] == "e") && !contains(walled, [curr[0]+1, curr[1]])){
-        //     q.push([curr[0]+1, curr[1]]);
-        // }
-        // if(curr[0]>0 && (maze[curr[0]-1][curr[1]] == "s" || maze[curr[0]-1][curr[1]] == "e") && !contains(walled, [curr[0]-1, curr[1]])){
-        //     q.push([curr[0]-1, curr[1]]);
-        // }
-        //actual dfs
-        if(curr[1]+2<maze.length && !contains(walled, [curr[0], curr[1]+2])){
-            q.push([curr[0], curr[1]+2]);
-        }
-        if(curr[1]-1>0 && !contains(walled, [curr[0], curr[1]-2])){
-            q.push([curr[0], curr[1]-2]);
-        }
-        if(curr[0]+2<maze.length && !contains(walled, [curr[0]+2, curr[1]])){
-            q.push([curr[0]+2, curr[1]]);
-        }
-        if(curr[0]-1>0 && !contains(walled, [curr[0]-2, curr[1]])){
-            q.push([curr[0]-2, curr[1]]);
-        }
-        walled.push(curr);
-    }
-    console.log(walled);
+}  
+function Getneighbours(arr, dist){
+    let ret = [];
+    ret.push([arr[0], arr[1]+dist]);
+    ret.push([arr[0], arr[1]-dist]);
+    ret.push([arr[0]+dist, arr[1]]);
+    ret.push([arr[0]-dist, arr[1]]);
+    return ret;
 }
-export {DSF, walled};
+function rand(max){
+    return Math.floor(Math.random() * max);
+}
+function findTargets(maze){
+    for(let i = 0 ; i < maze.length; i++){
+        for(let ind = 0 ; ind < maze.length; ind++){
+            let curr = document.querySelector(`.x${ind+1}.y${i+1}`);
+            if(curr.classList.contains("s")){
+                curr.classList.remove("w");
+            }
+            else if(curr.classList.contains("e")){
+                curr.classList.remove("w");
+            }
+        }
+    }
+}
+function DSF(maze){
+    toHtml();
+    toWall(maze);
+    let q = [];
+    q.push([0,0]);
+    let start = document.querySelector(`.x${1}.y${1}`);
+    start.classList.remove("w");
+    let int = setInterval(function() {
+        if(q.length==0){
+            findTargets(maze);            
+            clearInterval(int);
+            let dsf = document.querySelector(".dsf");
+            dsf.classList.remove("sMethod");
+            return maze;
+        }
+        else{
+            let curr = q.pop();
+            let neighbours = Getneighbours(curr, 2);
+            while(neighbours.length!=0){
+                let ran = rand(neighbours.length);
+                let n = neighbours[ran];
+                neighbours.splice(ran, 1);
+                let tile = document.querySelector(`.x${n[1]+1}.y${n[0]+1}`);
+                if(n[0] >= 0 && n[0] < maze.length && n[1] >=0 && n[1] < maze.length && tile.classList.contains("w")){
+                    tile.classList.remove("w");
+                    let tileBefore = document.querySelector(`.x${(n[1]+1 + curr[1]+1)/2}.y${(n[0]+1 + curr[0]+1)/2}`);
+                    tileBefore.classList.remove("w");
+                    q.push(n);
+                }
+            }
+        }
+    },50);
+}
+export {DSF, walled, prev};

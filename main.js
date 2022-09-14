@@ -1,7 +1,7 @@
-import {toArray, findTile} from "./htmlToJs.js";
+import {toArray, toHtml, findTile} from "./htmlToJs.js";
 import createGrid from "./gridCreator.js"
 import {BFS, path, visited} from "./bfs.js";
-import {DSF, walled} from "./dfs.js";
+import {DSF} from "./dfs.js";
 // size input
 var size = document.querySelector(".input");
 var adj = document.querySelector("#adjustedValue");
@@ -46,8 +46,8 @@ size.oninput = function() {
     createGrid(S);
     maze = toArray(S);
     cellEvent();
-    bsfSolve();
-    dsfCreate();
+    // bsfSolve();
+    // dsfCreate();
 }
 // sets on click event to make a wall
 let wB = document.querySelector(".wB");
@@ -71,8 +71,9 @@ eB.addEventListener("click", (event) => {
 let curr;
 function bsfSolve () {
     bsf.addEventListener("click", (event) =>{
-        console.log(maze);
-        BFS(maze);
+        toHtml();
+        maze=toArray(S);
+        BFS(maze, start);
         let i = 0;
         let ind = 0;
         let int = window.setInterval(function () {
@@ -97,27 +98,15 @@ function bsfSolve () {
     })
 }
 function dsfCreate(){
-    dsf.addEventListener("click", (event) =>{
+    dsf.addEventListener("click", () => {
         DSF(maze);
-        let i = 0;
-        let ind = 0;
-        let int = window.setInterval(function() {
-            if( i == walled.length){
-                clearInterval(int);
-                dsf.classList.remove(".sMethod");
-            }
-            else{
-                curr= document.querySelector(`.x${walled[i][1]+1}.y${walled[i][0]+1}`);
-                curr.classList.add("p");
-                i++;
-            }
-        }, 100);
-    })
+    });
 }
 function cellEvent(){
     let cellChange1 = document.querySelectorAll(".cell1");
     cellChange1.forEach(cell => {
         cell.addEventListener("click", () => {
+            toHtml();
             let rem = cell.classList.toggle(`${placement}`);
             if(placement == "s"){
                 cell.classList.remove("w");
@@ -173,6 +162,7 @@ function cellEvent(){
     let cellChange2 = document.querySelectorAll(".cell2");
     cellChange2.forEach(cell => {
         cell.addEventListener("click", () => {
+            toHtml();
             let rem = cell.classList.toggle(`${placement}`);
             if(placement == "s"){
                 cell.classList.remove("w");

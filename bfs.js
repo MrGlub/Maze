@@ -23,10 +23,10 @@ class coord{
         }
     }
 }
-function BFS(maze){
+function BFS(maze, start){
+    console.log(maze);
     path=[];
     visited=[];
-    let start = findTile("s");
     if(start[0]==-1){
         console.log("no start tile");
         return
