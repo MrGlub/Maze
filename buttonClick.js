@@ -3,6 +3,7 @@ let sB = document.querySelector(".sB");
 let eB = document.querySelector(".eB");
 let bsf = document.querySelector(".bsf");
 let dsf = document.querySelector(".dsf");
+let krusk = document.querySelector(".kruskal");
 // on click event for wall button
 wB.addEventListener("click", (event) => {
     wB.classList.add("wallBtn");
@@ -26,6 +27,9 @@ bsf.addEventListener("click", (event) =>{
 })
 dsf.addEventListener("click", (event) =>{
     dsf.classList.add("sMethod");    
+})
+krusk.addEventListener("click", (event) =>{
+    krusk.classList.add("sMethod");    
 })
 // start with wall button selected
 document.addEventListener("load", wB.classList.add("wallBtn"))

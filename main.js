@@ -1,7 +1,7 @@
 import {toArray, toHtml, findTile} from "./htmlToJs.js";
 import createGrid from "./gridCreator.js"
 import {BFS, path, visited} from "./bfs.js";
-import {DSF} from "./dfs.js";
+import {DSF, Kruskal} from "./creator.js";
 // size input
 var size = document.querySelector(".input");
 var adj = document.querySelector("#adjustedValue");
@@ -19,6 +19,7 @@ window.onload = () => {
     cellEvent();
     bsfSolve();
     dsfCreate();
+    kruskCreate();
 };
 // size change on input
 size.oninput = function() {
@@ -55,6 +56,7 @@ let sB = document.querySelector(".sB");
 let eB = document.querySelector(".eB");
 let bsf = document.querySelector(".bsf");
 let dsf = document.querySelector(".dsf");
+let krusk = document.querySelector(".kruskal");
 // on click event for wall button
 wB.addEventListener("click", (event) => {
     placement = "w";
@@ -100,6 +102,11 @@ function bsfSolve () {
 function dsfCreate(){
     dsf.addEventListener("click", () => {
         DSF(maze);
+    });
+}
+function kruskCreate(){
+    krusk.addEventListener("click", () => {
+        Kruskal(maze);
     });
 }
 function cellEvent(){
