@@ -142,33 +142,5 @@ function Kruskal(maze){
             }
         }
     }, 50);
-    // while(walls.length!=0){
-    //     let ind = rand(walls.length);
-    //     let curr = walls[ind];
-    //     walls.splice(ind, 1);
-    //     if(curr[1] % 2 == 0){
-    //         if(curr[0] > 0 && curr[0] < maze.length-1){
-    //             let right = findSet(set, [curr[0]-1, curr[1]]);
-    //             let left = findSet(set, [curr[0]+1, curr[1]]);
-    //             if(right != left){
-    //                 set[right]= set[right].concat(set[left]);
-    //                 set.splice(left, 1);
-    //                 document.querySelector(`.x${curr[0]+1}.y${curr[1]+1}`).classList.remove("w");
-    //             }
-    //         }
-    //     }
-    //     else{
-    //         if(curr[1] >0 && curr[1] < maze.length-1){
-    //             let up = findSet(set, [curr[0], curr[1]-1]);
-    //             let down = findSet(set, [curr[0], curr[1]+1]);
-    //             if(up != down){
-    //                 set[up] = set[up].concat(set[down]);
-    //                 set.splice(down, 1);
-    //                 document.querySelector(`.x${curr[0]+1}.y${curr[1]+1}`).classList.remove("w");
-    //             }
-    //         }
-    //     }
-    // }
-    
 }
 export {DSF, Kruskal, walled, prev};
