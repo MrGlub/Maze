@@ -73,6 +73,9 @@ eB.addEventListener("click", (event) => {
 let curr;
 function bsfSolve () {
     bsf.addEventListener("click", (event) =>{
+        var adj = document.querySelector("#mS");
+        let text = document.createTextNode("");
+        adj.replaceChildren(text);
         toHtml();
         maze=toArray(S);
         BFS(maze, start);

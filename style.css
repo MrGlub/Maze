@@ -67,7 +67,7 @@ img{
 }
 button{
     border-radius: 5px;
-    width: 10%;
+    width: fit-content;
     min-width: 38.97px;
     border: none;
 }

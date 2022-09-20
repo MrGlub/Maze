@@ -28,7 +28,9 @@ function BFS(maze, start){
     path=[];
     visited=[];
     if(start[0]==-1){
-        console.log("no start tile");
+        var adj = document.querySelector("#mS");
+        let text = document.createTextNode("no start tile");
+        adj.replaceChildren(text);
         return
     }
     let s = new coord(start[0], start[1], null, null);
@@ -72,7 +74,10 @@ function BFS(maze, start){
             visited.push(down);
         }
     }
-    console.log("no end tile");
+    visited.shift();
+    var adj = document.querySelector("#mS");
+    let text = document.createTextNode("no end tile");
+    adj.replaceChildren(text);
     return;
 }
 function findPath(node){
