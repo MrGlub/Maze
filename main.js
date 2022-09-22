@@ -1,6 +1,6 @@
 import {toArray, toHtml, findTile} from "./htmlToJs.js";
 import createGrid from "./gridCreator.js"
-import {BFS, path, visited} from "./bfs.js";
+import {BFS, aStar, path, visited} from "./solver.js";
 import {DSF, Kruskal} from "./creator.js";
 // size input
 var size = document.querySelector(".input");
@@ -18,6 +18,7 @@ window.onload = () => {
     maze = toArray(S);
     cellEvent();
     bsfSolve();
+    aStarSolve();
     dsfCreate();
     kruskCreate();
 };
@@ -47,14 +48,13 @@ size.oninput = function() {
     createGrid(S);
     maze = toArray(S);
     cellEvent();
-    // bsfSolve();
-    // dsfCreate();
 }
 // sets on click event to make a wall
 let wB = document.querySelector(".wB");
 let sB = document.querySelector(".sB");
 let eB = document.querySelector(".eB");
 let bsf = document.querySelector(".bsf");
+let aS = document.querySelector(".aStar");
 let dsf = document.querySelector(".dsf");
 let krusk = document.querySelector(".kruskal");
 // on click event for wall button
@@ -101,6 +101,16 @@ function bsfSolve () {
             }
         }, 50);
     })
+}
+function aStarSolve(){
+    aS.addEventListener("click", () => {
+        var adj = document.querySelector("#mS");
+        let text = document.createTextNode("");
+        adj.replaceChildren(text);
+        toHtml();
+        maze=toArray(S);
+        aStar(maze, start, end);
+    });
 }
 function dsfCreate(){
     dsf.addEventListener("click", () => {
